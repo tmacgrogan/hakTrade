@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Amazon.DynamoDBv2.DataModel;
 
 namespace hakTrade.Models
@@ -8,6 +9,7 @@ namespace hakTrade.Models
         [DynamoDBHashKey]
         public string name { get; set; }
         public string password { get; set; }
-        public double cash { get; set; }
+        public decimal cash { get; set; }
+        public IEnumerable<Share> portfolio { get; set; }
     }
 }

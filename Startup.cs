@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using IEXSharp;
 using hakTrade.Models;
 
 namespace hakTrade
@@ -33,6 +34,9 @@ namespace hakTrade
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonDynamoDB>();
             services.AddTransient<IDynamoDBContext, DynamoDBContext>();
+
+            var iexClient = new IEXCloudClient(Configuration["IEXConfig:publicToken"], Configuration["IEXConfig:secretToken"], signRequest: false, useSandBox: false);
+            services.AddSingleton(iexClient);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
